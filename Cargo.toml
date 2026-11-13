@@ -1,0 +1,9 @@
+[package]
+name = "nlptoolkit-xmlparser"
+version = "0.0.1"
+edition = "2024"
+license = "	GPL-3.0-or-later"
+description = "Simple Xml Parser library"
+repository = "https://github.com/StarlangSoftware/XmlParser-Rust"
+
+[dependencies]
