@@ -24,12 +24,12 @@ impl XmlElement{
         Self{name, pc_data:"".to_string(), attributes:Vec::new(), parent: parent, first_child: 0, next_sibling: 0}
     }
 
-    pub fn get_name(&self)->&String{
+    pub fn get_name(&self)->&str{
         &self.name
     }
 
-    pub fn get_pc_data(&self)->String{
-        self.pc_data.clone()
+    pub fn get_pc_data(&self)->&str{
+        &self.pc_data
     }
 
     pub fn set_pc_data(&mut self, data:String){
@@ -64,7 +64,7 @@ impl XmlElement{
     ///
     /// returns: Option<&String> If the Xml element has such an attribute returns its value, otherwise it returns None
     ///
-    pub fn get_attribute_value(&self, attribute_name: String) -> Option<&String> {
+    pub fn get_attribute_value(&self, attribute_name: String) -> Option<&str> {
         for attribute in &self.attributes{
             if *attribute.get_name() == attribute_name {
                 return Some(attribute.get_value())

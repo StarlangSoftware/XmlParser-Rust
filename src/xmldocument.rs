@@ -29,7 +29,7 @@ impl XmlDocument{
         Self{root: None, last_read_token_type: XmlEnd, data: data.unwrap(), position:0, arena: Vec::new(), next_char: '\0'}
     }
 
-    pub fn read_char(&mut self)->Option<char>{
+    fn read_char(&mut self)->Option<char>{
         if self.position < self.data.chars().count(){
             let ch = self.data.chars().nth(self.position);
             self.position += 1;
@@ -50,7 +50,7 @@ impl XmlDocument{
     ///
     /// returns: String Token read
     ///
-    pub fn read_token(&mut self, previous_char: char, extra_allowed: bool, quota_allowed: bool)->String{
+    fn read_token(&mut self, previous_char: char, extra_allowed: bool, quota_allowed: bool)->String{
         let mut ch = previous_char;
         let mut buffer = "".to_string();
         while (ch != '\'' || extra_allowed) && (ch != '\"' || quota_allowed) && (ch != '=' || quota_allowed) && (ch != ' ' || extra_allowed) && (ch != '/' || extra_allowed) && ch != '<' && (ch != '>' || quota_allowed){
@@ -66,11 +66,11 @@ impl XmlDocument{
         buffer
     }
 
-    pub fn read_token_no_extra_no_quota(&mut self, previous_char: char)->String{
+    fn read_token_no_extra_no_quota(&mut self, previous_char: char)->String{
         self.read_token(previous_char, false, false)
     }
 
-    pub fn read_token_no_quota(&mut self, previous_char: char, extra_allowed: bool)->String{
+    fn read_token_no_quota(&mut self, previous_char: char, extra_allowed: bool)->String{
         self.read_token(previous_char, extra_allowed, false)
     }
 
@@ -78,7 +78,7 @@ impl XmlDocument{
     ///
     /// returns: String Token read
     ///
-    pub fn parse_tag(&mut self)->String{
+    fn parse_tag(&mut self)->String{
         let mut ch = self.read_char();
         if ch == Some('/'){
             self.last_read_token_type = XmlClosingTagWithoutAttributes;
@@ -103,7 +103,7 @@ impl XmlDocument{
     ///
     /// returns: String Attribute value read
     ///
-    pub fn parse_attribute_value(&mut self)->String{
+    fn parse_attribute_value(&mut self)->String{
         let mut ch = self.read_char();
         if ch == Some('"'){
             self.last_read_token_type = XmlAttributeValue;
@@ -123,7 +123,7 @@ impl XmlDocument{
     ///
     /// returns: ""
     ///
-    pub fn parse_empty_tag(&mut self)->String{
+    fn parse_empty_tag(&mut self)->String{
         let ch = self.read_char();
         if ch.unwrap() != '>'{
             self.last_read_token_type = XmlEnd;
@@ -133,7 +133,7 @@ impl XmlDocument{
         "".to_string()
     }
 
-    pub fn get_next_token(&mut self, xml_text_type: XmlTextType)->String{
+    fn get_next_token(&mut self, xml_text_type: XmlTextType)->String{
         let mut ch = self.read_char();
         if ch.is_none(){
             return "".to_string();
@@ -296,7 +296,7 @@ impl XmlDocument{
         None
     }
 
-    pub fn replace_escape_characters(token: String) -> String {
+    fn replace_escape_characters(token: String) -> String {
         let mut result = token.clone();
         result = result.replace("&quot;", "\"");
         result = result.replace("&amp;", "&");

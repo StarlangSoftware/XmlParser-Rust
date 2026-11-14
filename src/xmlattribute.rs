@@ -16,11 +16,11 @@ impl XmlAttribute{
         Self{name, value: "".to_string() }
     }
 
-    pub fn get_name(&self)->&String{
+    pub fn get_name(&self)->&str{
         &self.name
     }
 
-    pub fn get_value(&self)->&String{
+    pub fn get_value(&self)->&str{
         &self.value
     }
 
