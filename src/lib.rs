@@ -1,5 +1,5 @@
-mod xmltokentype;
-mod xmltexttype;
-mod xmlattribute;
-mod xmlelement;
-mod xmldocument;
+pub mod xmltokentype;
+pub mod xmltexttype;
+pub mod xmlattribute;
+pub mod xmlelement;
+pub mod xmldocument;
