@@ -5,8 +5,8 @@ pub struct XmlElement{
     pc_data: String,
     attributes: Vec<XmlAttribute>,
     parent: Option<usize>,
-    first_child: usize,
-    next_sibling: usize
+    first_child: Option<usize>,
+    next_sibling: Option<usize>
 }
 
 impl XmlElement{
@@ -21,7 +21,7 @@ impl XmlElement{
     /// returns: XmlElement
     ///
     pub fn new(name:String, parent: Option<usize>)->Self{
-        Self{name, pc_data:"".to_string(), attributes:Vec::new(), parent: parent, first_child: 0, next_sibling: 0}
+        Self{name, pc_data:"".to_string(), attributes:Vec::new(), parent: parent, first_child: None, next_sibling: None}
     }
 
     pub fn get_name(&self)->&str{
@@ -36,20 +36,20 @@ impl XmlElement{
         self.pc_data = data
     }
 
-    pub fn get_first_child(&self)->usize{
+    pub fn get_first_child(&self)->Option<usize>{
         self.first_child
     }
 
     pub fn set_first_child(&mut self, first_child:usize){
-        self.first_child = first_child;
+        self.first_child = Some(first_child);
     }
 
-    pub fn get_next_sibling(&self)->usize{
+    pub fn get_next_sibling(&self)->Option<usize>{
         self.next_sibling
     }
 
     pub fn set_next_sibling(&mut self, sibling: usize){
-        self.next_sibling = sibling;
+        self.next_sibling = Some(sibling);
     }
 
     pub fn get_parent(&self)->Option<usize>{

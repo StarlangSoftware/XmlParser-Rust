@@ -322,12 +322,12 @@ mod tests {
         doc.parse();
         let root = doc.get_first_child().unwrap();
         assert_eq!(root.get_name(), "frameset");
-        let first_child_index = root.get_first_child();
+        let first_child_index = root.get_first_child().unwrap();
         let first_child = doc.get_xml_element(first_child_index);
         assert_eq!(first_child.get_name(), "role");
         let pc_data = first_child.get_pc_data();
         assert_eq!(pc_data, "ali veli \"deneme yapmak\" = anlamında > bir deyim");
-        let second_child_index = first_child.get_next_sibling();
+        let second_child_index = first_child.get_next_sibling().unwrap();
         let second_child = doc.get_xml_element(second_child_index);
         assert_eq!(second_child.get_attribute_value("descr".to_string()).unwrap(), "perceiver, alien \"x3\" to whom?");
         assert_eq!(second_child.get_attribute_value("f".to_string()).unwrap(), "PAG");
