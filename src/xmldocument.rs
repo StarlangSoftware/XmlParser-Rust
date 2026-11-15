@@ -1,4 +1,4 @@
-use std::fs;
+use std::{fs};
 use crate::xmlattribute::XmlAttribute;
 use crate::xmlelement::XmlElement;
 use crate::xmltexttype::XmlTextType;
@@ -30,10 +30,10 @@ impl XmlDocument{
     }
 
     fn read_char(&mut self)->Option<char>{
-        if self.position < self.data.chars().count(){
-            let ch = self.data.chars().nth(self.position);
-            self.position += 1;
-            Some(ch?)
+        if self.position < self.data.as_bytes().len(){
+            let ch = self.data[self.position..].chars().next()?;
+            self.position += ch.len_utf8();
+            Some(ch)
         } else {
             self.last_read_token_type = XmlEnd;
             None
@@ -152,7 +152,7 @@ impl XmlDocument{
                 if xml_text_type == XmlTextValue{
                     let token = self.read_token(ch.unwrap(), true, true);
                     self.last_read_token_type = XmlText;
-                    self.position = self.position - 1;
+                    self.position = self.position - ch.unwrap().len_utf8();
                     return token
                 } else {
                     return self.parse_attribute_value();
@@ -165,7 +165,7 @@ impl XmlDocument{
                 if xml_text_type == XmlTextValue{
                     let token = self.read_token(ch.unwrap(), true, true);
                     self.last_read_token_type = XmlText;
-                    self.position = self.position - 1;
+                    self.position = self.position - ch.unwrap().len_utf8();
                     return token
                 } else {
                     self.last_read_token_type = XmlEqual;
@@ -175,7 +175,7 @@ impl XmlDocument{
                 if xml_text_type == XmlTextValue{
                     let token = self.read_token(ch.unwrap(), true, true);
                     self.last_read_token_type = XmlText;
-                    self.position = self.position - 1;
+                    self.position = self.position - ch.unwrap().len_utf8();
                     return token
                 } else {
                     self.last_read_token_type = XmlOpeningTagFinish;
@@ -189,7 +189,7 @@ impl XmlDocument{
                     token = self.read_token_no_quota(ch.unwrap(), true);
                 }
                 self.last_read_token_type = XmlText;
-                self.position = self.position - 1;
+                self.position = self.position - ch.unwrap().len_utf8();
                 return token;
             }
         }
