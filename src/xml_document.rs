@@ -1,10 +1,10 @@
 use std::{fs};
-use crate::xmlattribute::XmlAttribute;
-use crate::xmlelement::XmlElement;
-use crate::xmltexttype::XmlTextType;
-use crate::xmltexttype::XmlTextType::{XmlTextAttribute, XmlTextValue};
-use crate::xmltokentype::XmlTokenType;
-use crate::xmltokentype::XmlTokenType::{XmlAttributeValue, XmlClosingTagWithAttributes, XmlClosingTagWithoutAttributes, XmlEnd, XmlEqual, XmlOpeningTagFinish, XmlOpeningTagWithAttributes, XmlOpeningTagWithoutAttributes, XmlText};
+use crate::xml_attribute::XmlAttribute;
+use crate::xml_element::XmlElement;
+use crate::xml_text_type::XmlTextType;
+use crate::xml_text_type::XmlTextType::{XmlTextAttribute, XmlTextValue};
+use crate::xml_token_type::XmlTokenType;
+use crate::xml_token_type::XmlTokenType::{XmlAttributeValue, XmlClosingTagWithAttributes, XmlClosingTagWithoutAttributes, XmlEnd, XmlEqual, XmlOpeningTagFinish, XmlOpeningTagWithAttributes, XmlOpeningTagWithoutAttributes, XmlText};
 
 pub struct XmlDocument{
     root: Option<usize>,
@@ -314,7 +314,7 @@ impl XmlDocument{
 
 #[cfg(test)]
 mod tests {
-    use crate::xmldocument::XmlDocument;
+    use crate::xml_document::XmlDocument;
 
     #[test]
     fn test_document() {

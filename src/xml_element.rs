@@ -1,4 +1,4 @@
-use crate::xmlattribute::XmlAttribute;
+use crate::xml_attribute::XmlAttribute;
 
 pub struct XmlElement{
     name: String,
